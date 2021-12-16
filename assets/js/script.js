@@ -21,8 +21,7 @@ if (movie){
 }else{ warningParagraphEl.classList.add("show");
 }
 }
-searchButtonEl.addEventListener("click", submitFormHandler) 
-   
+  
 
 // function to search movie title
 var getMovie = function(titleName) {
@@ -30,14 +29,14 @@ var getMovie = function(titleName) {
 
   //fetch API for titles and then display data
   fetch(apiUrl).then(function(response) {
-    // console.log(response);
+    console.log(response);
       if(response.ok){
         response.json().then(function(data) {
             displayTitles(data.Search)
             console.log(data);
   })
       }else {
-          // console.log(response.statusText)
+          console.log(response.statusText)
       }
   //fetch API for genres
   //var genreApiUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + genreApiKey + "&query=" + titleName;
