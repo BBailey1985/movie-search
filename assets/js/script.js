@@ -33,18 +33,18 @@ var getMovie = function(titleName) {
       if(response.ok){
         response.json().then(function(data) {
             displayTitles(data.Search)
-            console.log(data);
+            // console.log(data);
   })
       }else {
           console.log(response.statusText)
       }
-  //fetch API for genres
-  //var genreApiUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + genreApiKey + "&query=" + titleName;
-  //fetch(genreApiUrl).then(function(response) {
-    //response.json().then(function (data) {
-      // console.log(data);
-   // });
-  //});
+  // fetch API for genres
+  var genreApiUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + genreApiKey + "&query=" + titleName;
+  fetch(genreApiUrl).then(function(response) {
+    response.json().then(function (data) {
+      console.log(data);
+   });
+  });
 });
 }
 
@@ -59,12 +59,10 @@ var displayTitles = function(titles) {
       } else {
         moviesThumb.src=titles[i].Poster;
       }         
-      moviesInfo.innerHTML = '<h4>' + titles[i].Title + '</h4><p>' + titles[i].Year + '</p>'
+      moviesInfo.innerHTML = '<h4>' + titles[i].Title + '</h4><h5>' + titles[i].Year + '</h5>'
       moviesListItem.append(moviesThumb);
       moviesListItem.append(moviesInfo); 
-      moviesListItem.classList.add("title-item")       
-      // thumbImg= document.querySelector(".thumb-img");
-      // thumbImg.src = titles[i].Poster
+      moviesListItem.setAttribute("class", "card")
       repoListEl.appendChild(moviesListItem);
 
     }
