@@ -30,13 +30,14 @@ var getMovie = function(titleName) {
 
   //fetch API for titles and then display data
   fetch(apiUrl).then(function(response) {
+    // console.log(response);
       if(response.ok){
         response.json().then(function(data) {
             displayTitles(data.Search)
             console.log(data);
   })
       }else {
-          console.log(response.statusText)
+          // console.log(response.statusText)
       }
   //fetch API for genres
   //var genreApiUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + genreApiKey + "&query=" + titleName;
@@ -49,8 +50,25 @@ var getMovie = function(titleName) {
 }
 
 //display movie titles
-var displayTitles = function() {
-    
+var displayTitles = function(titles) {
+    for(var i = 0; i < titles.length; i++) {
+      var moviesListItem = document.createElement("div");
+      var moviesThumb = document.createElement("img");
+      var moviesInfo = document.createElement("div");
+      if (titles[i].Poster == "N/A") {
+        moviesThumb.src = "assets/img/image-not-found.png"
+      } else {
+        moviesThumb.src=titles[i].Poster;
+      }         
+      moviesInfo.innerHTML = '<h4>' + titles[i].Title + '</h4><p>' + titles[i].Year + '</p>'
+      moviesListItem.append(moviesThumb);
+      moviesListItem.append(moviesInfo); 
+      moviesListItem.classList.add("title-item")       
+      // thumbImg= document.querySelector(".thumb-img");
+      // thumbImg.src = titles[i].Poster
+      repoListEl.appendChild(moviesListItem);
+
+    }
   
 }
 
