@@ -33,7 +33,7 @@ var getMovie = function(titleName) {
       if(response.ok){
         response.json().then(function(data) {
             displayTitles(data.Search)
-            // console.log(data);
+            console.log(data);
   })
       }else {
           console.log(response.statusText)
@@ -59,10 +59,10 @@ var displayTitles = function(titles) {
       } else {
         moviesThumb.src=titles[i].Poster;
       }         
-      moviesInfo.innerHTML = '<h4>' + titles[i].Title + '</h4><h5>' + titles[i].Year + '</h5>'
-      moviesListItem.append(moviesThumb);
+      moviesInfo.innerHTML = '<div><h5>' + titles[i].Title + '<h5><p class = "card-title">' + titles[i].Year + '</p>'
       moviesListItem.append(moviesInfo); 
-      moviesListItem.setAttribute("class", "card")
+      moviesListItem.append(moviesThumb);      
+      moviesListItem.setAttribute("class", "card");          
       repoListEl.appendChild(moviesListItem);
 
     }
