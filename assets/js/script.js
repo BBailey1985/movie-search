@@ -5,6 +5,8 @@ var watchListEl = document.querySelector("#watch-list");
 var repoListEl = document.querySelector("#repo-list");
 var warningEl = document.querySelector(".input-field");
 var warningParagraphEl = document.querySelector(".warning");
+var titleInfoEl = document.querySelector("#title-info");
+var titleSummary = document.querySelector("#title-summary");
 //API Keys to pull in data
 var ApiKey = "1d758f3d2b1a8c8efada332dc1acd449";
 
@@ -78,6 +80,14 @@ var displayTitles = function (titles) {
     moviesListItem.append(moviesInfo);
     moviesListItem.setAttribute("class", "card");
     repoListEl.appendChild(moviesListItem);
+
+    moviesListItem.addEventListener("click", function() {
+      console.log("button is clicked")
+      var elem = document.querySelector("#modal1");
+      var instance = M.Modal.init(elem);
+      instance.open()
+    });
+    
   });
 };
 
