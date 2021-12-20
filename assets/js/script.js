@@ -9,12 +9,35 @@ var titleInfoEl = document.querySelector("#title-info");
 var titleSummary = document.querySelector("#title-summary");
 var modalTitleEl = document.querySelector("#modal-title");
 var modalSummaryEl = document.querySelector("#modal-summary");
-var modalImageEl= document.querySelector("#modal-image");
+var modalImageEl = document.querySelector("#modal-image");
 var modalButtonEl = document.querySelector("#modal-button");
 var savedMovies = [];
 
 //API Keys to pull in data
 var ApiKey = "1d758f3d2b1a8c8efada332dc1acd449";
+
+var displayFromLocalStorage = function () {
+  var saveMov = JSON.parse(localStorage.getItem("savedMovies"));
+  if (saveMov) {
+    watchListEl.innerHTML = "";
+    saveMov.forEach((el) => {
+      var div = document.createElement("div");
+      div.classList.add("watch-list_element");
+      var span = document.createElement("span");
+      span.textContent = "x";
+      span.addEventListener("click", function () {
+        deleteFromLocalStorage(el);
+      });
+      var img = document.createElement("img");
+      img.classList.add("watch-list_img");
+      img.setAttribute("src", "https://image.tmdb.org/t/p/original" + el);
+      div.appendChild(img);
+      div.appendChild(span);
+      watchListEl.appendChild(div);
+    });
+  }
+};
+displayFromLocalStorage();
 
 //submit form handler
 var submitFormHandler = function (event) {
@@ -43,7 +66,6 @@ var getMovie = function (titleName) {
     if (response.ok) {
       response.json().then(function (data) {
         displayTitles(data.results);
-        console.log(data);
       });
     } else {
       console.log(response.statusText);
@@ -87,35 +109,43 @@ var displayTitles = function (titles) {
     moviesListItem.setAttribute("class", "card");
     repoListEl.appendChild(moviesListItem);
 
-    moviesListItem.addEventListener("click", function(event) {
-      console.log(event.target)
+    moviesListItem.addEventListener("click", function (event) {
       var elem = document.querySelector("#modal1");
       var instance = M.Modal.init(elem);
-      instance.open()
+      instance.open();
       modalTitleEl.textContent = el.title;
       modalSummaryEl.textContent = el.overview;
-      modalImageEl.setAttribute( "src", "https://image.tmdb.org/t/p/original" + el.poster_path)
-      modalButtonEl.addEventListener("click", function (){
-        saveLocalStorage(el)
-        // we were having trouble callign the data instantly when modal initiated. 
-        //By binding the function to the event lister we are supposedly calling it there. 
+      modalImageEl.setAttribute(
+        "src",
+        "https://image.tmdb.org/t/p/original" + el.poster_path
+      );
+      modalButtonEl.addEventListener("click", function () {
+        saveLocalStorage(el.poster_path);
+        // we were having trouble callign the data instantly when modal initiated.
+        //By binding the function to the event lister we are supposedly calling it there.
         //Supposedly by writing it the above way instead we are now assigning the function to a handler.
         //I don't fully understand, but maybe it does what we want now?
-      });     
-         
-    });    
-
+      });
+    });
   });
 };
 
+function saveLocalStorage(item) {
+  console.log(item);
+  var savedFilms = JSON.parse(localStorage.getItem("savedMovies")) || [];
+  if (!savedFilms.includes(item)) {
+    savedFilms.push(item);
+  }
+  localStorage.setItem("savedMovies", JSON.stringify(savedFilms));
+}
 
-function saveLocalStorage (item) { 
-  console.log(item);     
-    var savedFilms = JSON.parse(localStorage.getItem("savedMovies")) || [];
-    if (!savedFilms.includes(item)) {
-      savedFilms.push(item) 
-    } 
-    localStorage.setItem("savedMovies", JSON.stringify(savedFilms))
+/// this function is not working, I think we should replace savedMovies from array, to array of objects with title and paths. Then we should be able to delete specific listing.
+function deleteFromLocalStorage(element) {
+  savedMovies.forEach((el) => {
+    console.log(el);
+
+    localStorage.removeItem(element);
+  });
 }
 
 // submit button
