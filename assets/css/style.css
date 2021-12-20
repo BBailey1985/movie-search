@@ -80,6 +80,15 @@ input {
   color: red;
   font-weight: bold;
 }
+.modal-content {
+  display: flex;
+}
+
+#modal-image {
+  width: 100px;
+  height: 170px;
+  margin-right: 10px;
+}
 
 @media (max-width: 1000px) {
   header h1 {
