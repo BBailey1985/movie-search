@@ -24,7 +24,7 @@
     </header>
     <main>
         <div class="container">
-            <div class="left-side col s12 l6">
+            <div class="left-side col s12 l6 mr">
                 <form>
                     <!----INPUT-->
                     <div class="row">
@@ -43,9 +43,14 @@
                         <label>Genre</label>
                         <select class="browser-default">
                             <option value="" disabled selected>Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option value="1">Action</option>
+                            <option value="2">Comedy</option>
+                            <option value="3">Drama</option>
+                            <option value="4">Fantasy</option>
+                            <option value="5">Horror</option>
+                            <option value="6">Mystery</option>
+                            <option value="7">Romance</option>
+                            <option value="8">Thriller</option>
                         </select>
                     </div>
                     <!----RADIO BUTTON-->
@@ -59,29 +64,30 @@
 
                 <div class="row mt">
                     <h4 class="grey-text text-lighten-2">Watch List</h4>
-                    <div id="watch-list"></div>
+                    <div id="watch-list">
+                    </div>
                 </div>
             </div>
 
             <div class="right-side col s12 l6" id="repo-list">
-                <span class="flow-text">10 movies display side</span>
+                <span class="flow-text"></span>
             </div>
 
             <div id="modal1" class="modal">
-              <div class="modal-content">
-                <img id = "modal-image" src ="">
-              <div class ="modal-description">
-                <h4 id="modal-title"></h4>
-                <p id="modal-summary"></p>
-                <button id ="modal-button" class="btn waves-effect waves-light mt" type="submit" name="action">
-                    Add to Watch List<i class="material-icons right"></i>
-                  </button>  
-              </div>                   
-              </div>
-              <div class="modal-footer">
-                <a href="#" class="modal-close waves-effect btn-flat">Close</a>
+                <div class="modal-content">
+                    <img id="modal-image" src="">
+                    <div class="modal-description">
+                        <h4 id="modal-title"></h4>
+                        <p id="modal-summary"></p>
+                        <button id="modal-button" class="btn waves-effect waves-light mt" type="submit" name="action">
+                            Add to Watch List<i class="material-icons right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-close waves-effect btn-flat">Close</a>
+                </div>
             </div>
-          </div>
         </div>
     </main>
 
