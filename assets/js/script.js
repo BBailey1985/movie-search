@@ -11,8 +11,8 @@ var modalTitleEl = document.querySelector("#modal-title");
 var modalSummaryEl = document.querySelector("#modal-summary");
 var modalImageEl = document.querySelector("#modal-image");
 var modalButtonEl = document.querySelector("#modal-button");
+var yearButtonEl = document.querySelector(".with-gap");
 var savedMovies = [];
-
 //API Keys to pull in data
 var ApiKey = "1d758f3d2b1a8c8efada332dc1acd449";
 
@@ -66,6 +66,7 @@ var getMovie = function (titleName) {
     if (response.ok) {
       response.json().then(function (data) {
         displayTitles(data.results);
+        console.log(data)
       });
     } else {
       console.log(response.statusText);
@@ -121,6 +122,7 @@ var displayTitles = function (titles) {
       );
       modalButtonEl.addEventListener("click", function () {
         saveLocalStorage(el.poster_path);
+        displayFromLocalStorage();
         // we were having trouble callign the data instantly when modal initiated.
         //By binding the function to the event lister we are supposedly calling it there.
         //Supposedly by writing it the above way instead we are now assigning the function to a handler.
@@ -129,6 +131,19 @@ var displayTitles = function (titles) {
     });
   });
 };
+
+// //function to sort by year
+// var getMovieYear = function(display) {
+//   console.log(display.release_date);
+//   display.forEach((el,index) => {
+  
+//   if (yearButtonEl.checked == true) {
+//     display.release_date.sort
+    
+//   } else {
+
+//   }
+// })
 
 function saveLocalStorage(item) {
   console.log(item);
@@ -141,10 +156,17 @@ function saveLocalStorage(item) {
 
 /// this function is not working, I think we should replace savedMovies from array, to array of objects with title and paths. Then we should be able to delete specific listing.
 function deleteFromLocalStorage(element) {
-  savedMovies.forEach((el) => {
-    console.log(el);
-
-    localStorage.removeItem(element);
+ 
+  var savedFilms = JSON.parse(localStorage.getItem("savedMovies"))
+  // console.log(savedFilms);
+  savedFilms.forEach((el,index) => {
+    // console.log(savedFilms)
+    if (el === element) {
+      savedFilms.splice(index, 1);
+      console.log(savedFilms)
+      localStorage.setItem("savedMovies", JSON.stringify(savedFilms));
+      displayFromLocalStorage();
+    };
   });
 }
 
