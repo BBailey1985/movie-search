@@ -64,7 +64,7 @@ input {
 #watch-list {
 	background-color: rgba(255, 255, 255, 0.666);
 	width: 100%;
-	height: auto;
+	height: 200px;
 	border-radius: 10px;
 	display: flex;
 	flex-wrap: wrap;
