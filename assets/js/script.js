@@ -12,6 +12,8 @@ var modalSummaryEl = document.querySelector("#modal-summary");
 var modalImageEl = document.querySelector("#modal-image");
 var modalButtonEl = document.querySelector("#modal-button");
 var yearButtonEl = document.querySelector(".with-gap");
+var covidZipEl = document.querySelector("#zip-code");
+var zipButtonEl = document.querySelector("#zip-button");
 var savedMovies = [];
 //API Keys to pull in data
 var ApiKey = "1d758f3d2b1a8c8efada332dc1acd449";
@@ -71,15 +73,25 @@ var getMovie = function (titleName) {
     } else {
       console.log(response.statusText);
     }
-    // fetch API for genres
-    // var genreApiUrl = "https://api.themoviedb.org/3/search/movie?api_key=" + ApiKey + "&query=" + titleName;
-    // fetch(genreApiUrl).then(function(response) {
-    //   response.json().then(function (data) {
-    //     console.log(data);
-    //  });
-    // });
   });
 };
+
+// get covid data and fetch
+var getCovidData = function () {
+  var covidApiUrl =
+  "https://localcoviddata.com/covid19/v1/locations?zipCode=" + covidZipEl.value;
+
+  fetch(covidApiUrl).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (covidData) {
+        console.log(covidData)
+      });
+    } else {
+      console.log(response.statusText);
+    }
+  });
+}
+
 
 // display movie titles
 var displayTitles = function (titles) {
@@ -172,3 +184,6 @@ function deleteFromLocalStorage(element) {
 
 // submit button
 searchButtonEl.addEventListener("click", submitFormHandler);
+zipButtonEl.addEventListener("click", getCovidData);
+
+
