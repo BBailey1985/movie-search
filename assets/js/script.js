@@ -76,10 +76,7 @@ var getMovie = function (titleName) {
 };
 
 // get covid data and fetch
-var getCovidData = function (event) {
-  event.preventDefault();
-  var input = covidZipEl.value
-  console.log(covidZipEl.value);
+var getCovidData = function () {   
   var covidApiUrl =
   "https://corona.lmao.ninja/v2/all?yesterday";
 
