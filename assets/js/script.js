@@ -12,8 +12,7 @@ var modalSummaryEl = document.querySelector("#modal-summary");
 var modalImageEl = document.querySelector("#modal-image");
 var modalButtonEl = document.querySelector("#modal-button");
 var yearButtonEl = document.querySelector(".with-gap");
-var covidZipEl = document.querySelector("#zip-code");
-var zipButtonEl = document.querySelector("#zip-button");
+var covidInfoEl = document.querySelector(".covid-info");
 var savedMovies = [];
 //API Keys to pull in data
 var ApiKey = "1d758f3d2b1a8c8efada332dc1acd449";
@@ -77,17 +76,26 @@ var getMovie = function (titleName) {
 };
 
 // get covid data and fetch
-var getCovidData = function () {
+var getCovidData = function (event) {
+  event.preventDefault();
+  var input = covidZipEl.value
+  console.log(covidZipEl.value);
   var covidApiUrl =
-  "https://localcoviddata.com/covid19/v1/locations?zipCode=" + covidZipEl.value;
+  "https://corona.lmao.ninja/v2/all?yesterday";
 
   fetch(covidApiUrl).then(function (response) {
+  
+    // console.log(response);
     if (response.ok) {
       response.json().then(function (covidData) {
-        console.log(covidData)
+        console.log(covidData);
+        var div = document.createElement("div");
+        div.classList.add("covid-cases")
+        div.innerHTML = "<p>Today's new Covid cases: " + covidData.todayCases + "    |    Today's recovered cases: " + covidData.todayRecovered + "    |    Today's Deaths: " + covidData.todayDeaths + "</p>"
+        covidInfoEl.appendChild(div);
       });
     } else {
-      console.log(response.statusText);
+      // console.log(response.statusText);
     }
   });
 }
@@ -184,6 +192,8 @@ function deleteFromLocalStorage(element) {
 
 // submit button
 searchButtonEl.addEventListener("click", submitFormHandler);
-zipButtonEl.addEventListener("click", getCovidData);
+document.body.addEventListener("load", getCovidData());
+
+
 
 
