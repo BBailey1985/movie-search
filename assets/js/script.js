@@ -77,17 +77,23 @@ var getMovie = function (titleName) {
 };
 
 // get covid data and fetch
-var getCovidData = function () {
+var getCovidData = function (event) {
+  event.preventDefault();
+  var input = covidZipEl.value
+  console.log(covidZipEl.value);
   var covidApiUrl =
   "https://localcoviddata.com/covid19/v1/locations?zipCode=" + covidZipEl.value;
+  
 
   fetch(covidApiUrl).then(function (response) {
+  
+    // console.log(response);
     if (response.ok) {
       response.json().then(function (covidData) {
-        console.log(covidData)
+        // console.log(covidData)
       });
     } else {
-      console.log(response.statusText);
+      // console.log(response.statusText);
     }
   });
 }
