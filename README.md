@@ -11,8 +11,10 @@ favorite movies can be added to a watch list  watch lost information will be sav
 - RWD
 - Materialize UI
 - OMDb API
+- Covid Act Now API 
 
+# Website: https://bbailey1985.github.io/movie-search/
 
+## Created by Maya Booth, Brandon Bailey, Jorge Belmontes, Syrous Amini
 
-
-
+![screen](https://user-images.githubusercontent.com/92944248/147173573-25495e2d-5609-4f07-892a-d8c0e7f39591.png)
